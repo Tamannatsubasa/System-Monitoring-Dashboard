@@ -7,27 +7,82 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
         }
-        .metrics {
-            margin-bottom: 20px;
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
-        .chart {
+        h1 {
             text-align: center;
+            color: #444;
+        }
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .metric:last-child {
+            border-bottom: none;
+        }
+        .label {
+            font-weight: bold;
+        }
+        .value {
+            font-size: 1.2em;
+            color: #007BFF;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <h1>System Monitoring Dashboard</h1>
-    <div class="metrics">
-        <h2>Metrics</h2>
-        <p><strong>CPU Usage:</strong> {{ metrics.cpu }}%</p>
-        <p><strong>Memory Usage:</strong> {{ metrics.memory }}%</p>
-        <p><strong>Disk Usage:</strong> {{ metrics.disk }}%</p>
-    </div>
-    <div class="chart">
-        <h2>Visualization</h2>
-        <img src="data:image/png;base64,{{ chart_data }}" alt="System Metrics Chart">
+    <div class="container">
+        <h1>System Monitoring Dashboard</h1>
+        <div class="metric">
+            <span class="label">CPU Usage:</span>
+            <span class="value">{{ cpu }}%</span>
+        </div>
+        <div class="metric">
+            <span class="label">Memory Usage:</span>
+            <span class="value">{{ memory }}%</span>
+        </div>
+        <div class="metric">
+            <span class="label">Disk Usage:</span>
+            <span class="value">{{ disk }}%</span>
+        </div>
+        <div class="metric">
+            <span class="label">Bytes Sent:</span>
+            <span class="value">{{ sent }}</span>
+        </div>
+        <div class="metric">
+            <span class="label">Bytes Received:</span>
+            <span class="value">{{ received }}</span>
+        </div>
+        <div class="metric">
+            <span class="label">Active Processes:</span>
+            <span class="value">{{ processes }}</span>
+        </div>
+        <div class="metric">
+            <span class="label">System Uptime:</span>
+            <span class="value">{{ uptime }}</span>
+        </div>
+        <div class="footer">
+            Powered by Flask and psutil | © 2025
+        </div>
     </div>
 </body>
 </html>
