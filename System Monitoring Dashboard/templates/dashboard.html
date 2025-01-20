@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Monitoring Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .metrics {
+            margin-bottom: 20px;
+        }
+        .chart {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>System Monitoring Dashboard</h1>
+    <div class="metrics">
+        <h2>Metrics</h2>
+        <p><strong>CPU Usage:</strong> {{ metrics.cpu }}%</p>
+        <p><strong>Memory Usage:</strong> {{ metrics.memory }}%</p>
+        <p><strong>Disk Usage:</strong> {{ metrics.disk }}%</p>
+    </div>
+    <div class="chart">
+        <h2>Visualization</h2>
+        <img src="data:image/png;base64,{{ chart_data }}" alt="System Metrics Chart">
+    </div>
+</body>
+</html>
