@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>System Monitoring Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,22 +25,9 @@
             text-align: center;
             color: #444;
         }
-        .metric {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 0;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        .metric:last-child {
-            border-bottom: none;
-        }
-        .label {
-            font-weight: bold;
-        }
-        .value {
-            font-size: 1.2em;
-            color: #007BFF;
+        canvas {
+            display: block;
+            margin: 20px auto;
         }
         .footer {
             text-align: center;
@@ -52,37 +40,61 @@
 <body>
     <div class="container">
         <h1>System Monitoring Dashboard</h1>
-        <div class="metric">
-            <span class="label">CPU Usage:</span>
-            <span class="value">{{ cpu }}%</span>
-        </div>
-        <div class="metric">
-            <span class="label">Memory Usage:</span>
-            <span class="value">{{ memory }}%</span>
-        </div>
-        <div class="metric">
-            <span class="label">Disk Usage:</span>
-            <span class="value">{{ disk }}%</span>
-        </div>
-        <div class="metric">
-            <span class="label">Bytes Sent:</span>
-            <span class="value">{{ sent }}</span>
-        </div>
-        <div class="metric">
-            <span class="label">Bytes Received:</span>
-            <span class="value">{{ received }}</span>
-        </div>
-        <div class="metric">
-            <span class="label">Active Processes:</span>
-            <span class="value">{{ processes }}</span>
-        </div>
-        <div class="metric">
-            <span class="label">System Uptime:</span>
-            <span class="value">{{ uptime }}</span>
-        </div>
+        
+        <!-- Pie Chart -->
+        <h2>CPU, Memory, and Disk Usage (Pie Chart)</h2>
+        <canvas id="usagePieChart"></canvas>
+
+        <!-- Bar Chart -->
+        <h2>Usage Breakdown (Bar Chart)</h2>
+        <canvas id="usageBarChart"></canvas>
+
         <div class="footer">
             Powered by Flask and psutil | © 2025
         </div>
     </div>
+
+    <script>
+        // Data from Flask (values injected dynamically)
+        const cpuUsage = {{ cpu }};
+        const memoryUsage = {{ memory }};
+        const diskUsage = {{ disk }};
+
+        // Pie Chart
+        const pieCtx = document.getElementById('usagePieChart').getContext('2d');
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['CPU Usage', 'Memory Usage', 'Disk Usage'],
+                datasets: [{
+                    label: 'Usage Percentage',
+                    data: [cpuUsage, memoryUsage, diskUsage],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                }]
+            },
+        });
+
+        // Bar Chart
+        const barCtx = document.getElementById('usageBarChart').getContext('2d');
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['CPU Usage', 'Memory Usage', 'Disk Usage'],
+                datasets: [{
+                    label: 'Usage (%)',
+                    data: [cpuUsage, memoryUsage, diskUsage],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
