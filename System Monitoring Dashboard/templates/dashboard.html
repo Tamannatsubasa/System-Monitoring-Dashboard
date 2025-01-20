@@ -21,13 +21,20 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
-        h1 {
+        h1, h2 {
             text-align: center;
             color: #444;
         }
         canvas {
             display: block;
             margin: 20px auto;
+        }
+        .metrics {
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+        .metric {
+            margin-bottom: 10px;
         }
         .footer {
             text-align: center;
@@ -41,6 +48,18 @@
     <div class="container">
         <h1>System Monitoring Dashboard</h1>
         
+        <!-- Text Metrics -->
+        <div class="metrics">
+            <h2>System Metrics</h2>
+            <p class="metric"><strong>CPU Usage:</strong> {{ cpu }}%</p>
+            <p class="metric"><strong>Memory Usage:</strong> {{ memory }}%</p>
+            <p class="metric"><strong>Disk Usage:</strong> {{ disk }}%</p>
+            <p class="metric"><strong>Bytes Sent:</strong> {{ bytes_sent }} bytes</p>
+            <p class="metric"><strong>Bytes Received:</strong> {{ bytes_received }} bytes</p>
+            <p class="metric"><strong>Process Count:</strong> {{ process_count }}</p>
+            <p class="metric"><strong>System Uptime:</strong> {{ uptime }}</p>
+        </div>
+
         <!-- Pie Chart -->
         <h2>CPU, Memory, and Disk Usage (Pie Chart)</h2>
         <canvas id="usagePieChart"></canvas>
